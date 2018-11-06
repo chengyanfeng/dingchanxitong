@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>容联七陌点餐系统</title>
+</head>
+<link id="bootstrap-style" href="/static/css/bootstrap.css" rel="stylesheet">
+
+<body>
+<div>
+    <img  src="./static/img/logo2.png" style="width: 200px" />
+</div>
+<div style="width:100%;text-align:center">
+    <h2>容联七陌点餐系统</h2>
+</div>
+<div style="width:100%;text-align:center;margin-top: 100px">
+<table style="margin:0 auto;margin-top: 50px;width:800px;" id="tablemessage" class="table table-striped" >
+    {{ if .data}}
+        <tr class="info">
+            <td style="width:50px" >饭菜</td>
+            <td style="width:700px">人员</td>
+            <td style="width:50px">数量</td>
+        </tr>
+    {{range .data}}
+        <tr class="warning">
+            <td>{{.FoodName}}</td>
+            <td>{{.Name}}</td>
+            <td>{{.Count}}</td>
+        </tr>
+        {{end}}
+{{else}}
+
+        <tr>
+            <a>现在还没有人员点餐</a>
+        </tr>
+        {{end}}
+
+
+</table>
+</div>
+</body>
+</html>

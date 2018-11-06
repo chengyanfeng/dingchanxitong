@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>容联七陌点餐系统</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link id="bootstrap-style" href="/static/css/bootstrap.css" rel="stylesheet">
+
+</head>
+
+<body>
+<div>
+    <img  src="./static/img/logo2.png" style="width: 200px" />
+</div>
+<div style="width:100%;text-align:center">
+    <h2>容联七陌点餐系统</h2>
+</div>
+<div style="width:100%;text-align:center;margin-top: 100px">
+
+    <form id="food">
+        <div class="form-group">
+            <label class="sr-only" for="food1">请输入点菜名称</label>
+            <input type="text" class="form-control" id="food1" placeholder="请输入点菜名称"
+                   style="width: 200px;margin: 0 auto;display: inline-block">
+            <button type="button" class="btn btn-default" onclick="sendFood()">添加新菜</button>
+        </div>
+
+
+    </form>
+        <input type="button" value="进入点餐界面" onclick="window.location.href='http://192.168.147.199:8084/home' "      class="btn btn-default" style="color: #2aabd2">
+    <input type="button" value="查看点餐人数" onclick="window.location.href='http://192.168.147.199:8084/getcount' " class="btn btn-default" style="color: #2aabd2">
+</div>
+</body>
+<script src="http://code.jquery.com/jquery-1.4.1.js"></script>
+
+<script type="text/javascript">
+
+    htmlstring = ""
+    var sendFood = function () {
+        debugger
+        var foodName = $("#food input:last").val()
+        if(foodName==""){
+            alert("请输入饭菜名称")
+            return false
+        }
+        $.post("/set",
+                {
+                    foodName: foodName,
+                },
+                function (res, status) {
+                    if (res.data.length > 0) {
+                        for (i = 0; i < res.data.length; i++) {
+                            htmlstring = htmlstring + `<div class="form-group">
+        <label class="sr-only" for="food1">请输入点菜名称</label>
+        <input type="text" class="form-control" id="food` + i + `" value="` + res.data[i].FoodName + `" placeholder="请输入点菜名称" style="width: 200px;margin: 0 auto;display: inline-block">
+        <button type="button" class="btn btn-default" onclick="delectFood(`+i+`)" style="color: red">删除</button>
+        </div>`
+                        }
+
+                    }
+                    htmlstring = htmlstring + `<div class="form-group">
+        <label class="sr-only" for="food1">请输入点菜名称</label>
+        <input type="text" class="form-control" id="food"  placeholder="请输入点菜名称" style="width: 200px;margin: 0 auto;display: inline-block">
+        <button type="button" class="btn btn-default" onclick="sendFood()" style="color:#ce8483">添加</button>
+        </div>`
+                    $("#food").html(htmlstring)
+                    htmlstring=""
+                }
+                , "json")
+    };
+</script>
+<script type="text/javascript">
+
+
+    var delectFood = function (i) {
+        debugger
+        var foodName = $("#food"+i).val()
+        $.post("/delect",
+                {
+                    foodName: foodName,
+                },
+                function (res, status) {
+                    if (res.data.length > 0) {
+                        for (i = 0; i < res.data.length; i++) {
+                            htmlstring = htmlstring + `<div class="form-group">
+        <label class="sr-only" for="food1">请输入点菜名称</label>
+        <input type="text" class="form-control" id="food` + i + `" value="` + res.data[i].FoodName + `" placeholder="请输入点菜名称" style="width: 200px;margin: 0 auto;display: inline-block">
+        <button type="button" class="btn btn-default" onclick="delectFood(`+i+`)" style="color: red">删除</button>
+        </div>`
+                        }
+
+                    }
+                    htmlstring = htmlstring + `<div class="form-group">
+        <label class="sr-only" for="food1">请输入点菜名称</label>
+        <input type="text" class="form-control" id="food"  placeholder="请输入点菜名称" style="width: 200px;margin: 0 auto;display: inline-block">
+        <button type="button" class="btn btn-default" onclick="sendFood()" style="color:#ce8483">添加</button>
+        </div>`
+                    $("#food").html(htmlstring)
+                    htmlstring=""
+                }
+                , "json")
+    };
+</script>
+<script>
+
+    var getFood = function () {
+        debugger
+        $.get("/getfood",
+                function (res, status) {
+                    if (res.data.length > 0) {
+                        for (i = 0; i < res.data.length; i++) {
+                            htmlstring = htmlstring + `<div class="form-group">
+        <label class="sr-only" for="food1">请输入点菜名称</label>
+        <input type="text" class="form-control" id="food` + i + `" value="` + res.data[i].FoodName + `" placeholder="请输入点菜名称" style="width: 200px;margin: 0 auto;display: inline-block">
+        <button type="button" class="btn btn-default" onclick="delectFood(`+i+`)" style="color: red">删除</button>
+        </div>`
+                        }
+
+                    }
+                    htmlstring = htmlstring + `<div class="form-group">
+        <label class="sr-only" for="food1">请输入点菜名称</label>
+        <input type="text" class="form-control" id="food"  placeholder="请输入点菜名称" style="width: 200px;margin: 0 auto;display: inline-block">
+        <button type="button" class="btn btn-default" style="color:#ce8483" onclick="sendFood()" >添加</button>
+        </div>`
+                    $("#food").html(htmlstring)
+                    htmlstring=""
+                }
+                , "json")
+    };
+</script>
+<script>
+    window.onload=getFood()
+</script>
+</html>

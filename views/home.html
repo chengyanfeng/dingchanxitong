@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>容联七陌点餐系统</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link id="bootstrap-style" href="/static/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+
+<div>
+    <img  src="./static/img/logo2.png" style="width: 200px" />
+</div>
+<div style="width:100%;text-align:center">
+    <h2>容联七陌点餐系统</h2>
+</div>
+<div style="width:100%;text-align:center;margin-top:100px">
+
+    <label style="display: block"><input name="name" type="radio" value="" style=""/><input value="" type="text"  placeholder="请输入您的名字" class="btn btn-default" style="margin-left:20px;width: 200px" id="name"/></label>
+
+<form style="margin-top: 50px" id="dianchan">
+
+
+
+</form>
+</div>
+</body>
+<script src="http://code.jquery.com/jquery-1.4.1.js"></script>
+<script>
+    htmlstring=` <h4>请选您喜欢的饭菜</h4>`
+    var getFood = function () {
+        debugger
+        $.get("/getfood",
+                function (res, status) {
+                    if (res.data.length > 0) {
+                        for (i = 0; i < res.data.length; i++) {
+                            htmlstring = htmlstring + ` <label style="display: block"><input name="Fruit" type="radio" value="`+res.data[i].FoodName+`" /><input value="`+res.data[i].FoodName+`" type="button" class="btn btn-default" style="margin-left:20px;width: 200px"/></label>`
+                        }
+
+                    }else {
+
+                        alert("还未添加饭菜，请稍后再进入点餐系统")
+                        return false
+
+                    }
+                    htmlstring=htmlstring+`<input type="button" value="提交" onclick="sendmessage()" class="btn btn-default" style="color: #2aabd2">
+`
+                    $("#dianchan").html(htmlstring)
+                    htmlstring=""
+                }
+                , "json")
+    };
+
+
+</script>
+<script type="text/javascript">
+
+
+    var sendmessage = function () {
+        debugger
+        var name = $("#name").val()
+        var foodName = $("input[name='Fruit']:checked").val();
+        if(name==""){
+            alert("请输入用户名称")
+            return false
+        }
+        if(foodName==undefined){
+            alert("请选择菜系")
+            return false
+        }
+        $.post("/upmessage",
+                {
+                    foodName: foodName,
+                    name:name,
+                },
+                function (res, status) {
+                    if(status=="success"){
+                        if (res.data=="ok"){
+                            alert("您提交成功")
+                            $("#name").attr("value","")
+
+                        }else {
+                            alert("您提交失败")
+                        }
+                    }
+                }
+                , "json")
+    };
+</script>
+<script>
+    window.onload=getFood()
+</script>
+</html>
