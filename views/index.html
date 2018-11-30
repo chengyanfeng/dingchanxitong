@@ -13,7 +13,7 @@
     <img  src="./static/img/logo2.png" style="width: 200px;margin-top: 10px;margin-left: 10px" />
 </div>
 <div style="width:100%;text-align:center">
-    <h2>容联七陌点餐系统</h2>
+    <h2 style="color: red">容联七陌点餐系统</h2>
 </div>
 <div style="width:100%;text-align:center;margin-top: 100px">
 
@@ -52,7 +52,7 @@
                         for (i = 0; i < res.data.length; i++) {
                             htmlstring = htmlstring + `<div class="form-group">
         <label class="sr-only" for="food1">请输入点菜名称</label>
-        <input type="text" class="form-control" id="food` + i + `" value="` + res.data[i].FoodName + `" placeholder="请输入点菜名称" style="width: 200px;margin: 0 auto;display: inline-block">
+        <input type="button" class="form-control" id="food` + i + `" value="` + res.data[i].FoodName + `" placeholder="请输入点菜名称" style="width: 200px;margin: 0 auto;display: inline-block">
         <button type="button" class="btn btn-default" onclick="delectFood(`+i+`)" style="color: red">删除</button>
         </div>`
                         }
@@ -84,7 +84,7 @@
                         for (i = 0; i < res.data.length; i++) {
                             htmlstring = htmlstring + `<div class="form-group">
         <label class="sr-only" for="food1">请输入点菜名称</label>
-        <input type="text" class="form-control" id="food` + i + `" value="` + res.data[i].FoodName + `" placeholder="请输入点菜名称" style="width: 200px;margin: 0 auto;display: inline-block">
+        <input type="button" class="form-control" id="food` + i + `" value="` + res.data[i].FoodName + `" placeholder="请输入点菜名称" style="width: 200px;margin: 0 auto;display: inline-block">
         <button type="button" class="btn btn-default" onclick="delectFood(`+i+`)" style="color: red">删除</button>
         </div>`
                         }
@@ -111,7 +111,7 @@
                         for (i = 0; i < res.data.length; i++) {
                             htmlstring = htmlstring + `<div class="form-group">
         <label class="sr-only" for="food1">请输入点菜名称</label>
-        <input type="text" class="form-control" id="food` + i + `" value="` + res.data[i].FoodName + `" placeholder="请输入点菜名称" style="width: 200px;margin: 0 auto;display: inline-block">
+        <input type="button" class="form-control" id="food` + i + `" value="` + res.data[i].FoodName + `" placeholder="请输入点菜名称" style="width: 200px;margin: 0 auto;display: inline-block">
         <button type="button" class="btn btn-default" onclick="delectFood(`+i+`)" style="color: red">删除</button>
         </div>`
                         }
