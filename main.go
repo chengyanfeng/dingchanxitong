@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+
 	beego.BConfig.RecoverPanic = true
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
 		AllowOrigins:     []string{"*"},
